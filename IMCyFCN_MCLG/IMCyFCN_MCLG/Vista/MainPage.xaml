@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="IMCyFCN_MCLG.MainPage">
+
+    <StackLayout>
+        <Frame Padding="20">
+            <Label Text="Calcular IMC y FCN" 
+                   FontSize="30" 
+                   FontAttributes="Bold" 
+                   HorizontalTextAlignment="Center" 
+                   TextColor="Black"/>
+        </Frame>
+        <Label Text="Puedes seleccionar entre calcular tu Índice de Masa Corpolar (IMC) y tu Frecuencia Cardiaca Noramal (FCN)" 
+               FontAttributes="Italic" 
+               Margin="20"
+               FontSize="15"/>
+        <StackLayout Margin="20">
+            <Label Text="Opciones"
+                   FontAttributes="Bold"
+                   FontSize="20"
+                   TextColor="Black"/>
+
+            <Grid>
+                <RadioButton Grid.Column="0" IsChecked="{Binding IMCselect, Mode=TwoWay}" Content="IMC" />
+
+                <RadioButton Grid.Column="1" Content="FCN" IsChecked="True"/>
+            </Grid>
+
+            <Label Text="Proporciona datos"/>
+
+            <Entry Placeholder="Peso" x:Name="peso" IsVisible="{Binding MostrarDatos}"/>
+            <Entry Placeholder="ALtura" x:Name="altura" IsVisible="{Binding MostrarDatos}"/>
+            <Entry  Placeholder="Latidos" x:Name="latidos" IsVisible="{Binding MostrarDatos}"/>
+
+            <Button Text="Calcular"/>
+
+            <Label Text=""></Label>
+            <Image Source=""></Image>
+
+        </StackLayout>
+        
+    </StackLayout>
+
+</ContentPage>
