@@ -22,20 +22,24 @@
                    TextColor="Black"/>
 
             <Grid>
-                <RadioButton Grid.Column="0" IsChecked="{Binding IMCselect, Mode=TwoWay}" Content="IMC" />
+                <RadioButton Grid.Column="0" IsChecked="{Binding ProcesoMostrarCommand, Mode=TwoWay}" Content="IMC" />
 
                 <RadioButton Grid.Column="1" Content="FCN" IsChecked="True"/>
             </Grid>
 
             <Label Text="Proporciona datos"/>
 
-            <Entry Placeholder="Peso" x:Name="peso" IsVisible="{Binding MostrarDatos}"/>
-            <Entry Placeholder="ALtura" x:Name="altura" IsVisible="{Binding MostrarDatos}"/>
-            <Entry  Placeholder="Latidos" x:Name="latidos" IsVisible="{Binding MostrarDatos}"/>
+            <Entry Placeholder="Peso" x:Name="peso" Text="{Binding peso}" Keyboard="Numeric" IsVisible="{Binding pesoM}"/>
+            <Entry Placeholder="Altura" x:Name="altura" Text="{Binding altura}" Keyboard="Numeric" IsVisible="{Binding alturaM}"/>
+            <Entry Placeholder="Latidos" x:Name="latidos" Text="{Binding latidos}" Keyboard="Numeric" IsVisible="{Binding latidosM}"/>
 
-            <Button Text="Calcular"/>
 
-            <Label Text=""></Label>
+            <Button Text="Calcular" Command="{Binding IMCCommand}"/>
+
+
+            <Button Text="CalcularFCN" Command="{Binding FCNCommand}"/>
+
+            <Entry Text="{Binding resultado}" Placeholder="Resultado"></Entry>
             <Image Source=""></Image>
 
         </StackLayout>
