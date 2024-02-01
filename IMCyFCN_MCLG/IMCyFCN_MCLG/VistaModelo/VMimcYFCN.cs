@@ -56,7 +56,7 @@ namespace IMCyFCN_MCLG.VistaModelo
 		Entry pesoM;
 		Entry alturaM;
 		Entry latidosM;
-		public void MostrarDatos(bool IMCse)
+		public void MostrarD(bool IMCse)
 		{
 			
 			if (IMCse)
@@ -95,7 +95,7 @@ namespace IMCyFCN_MCLG.VistaModelo
 		#endregion
 		#region COMANDOS
 		public ICommand ProcesoAsyncommand => new Command(async () => await ProcesoAsyncrono());
-		public ICommand ProcesoMostrarCommand => new Command<bool>(p => MostrarDatos(p));
+		public ICommand ProcesoMostrarCommand => new Command<bool>(p => MostrarD(p));
 		public ICommand IMCCommand => new Command(IMC);
 
 		public ICommand FCNCommand => new Command(FCN);

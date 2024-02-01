@@ -22,7 +22,7 @@
                    TextColor="Black"/>
 
             <Grid>
-                <RadioButton Grid.Column="0" IsChecked="{Binding ProcesoMostrarCommand, Mode=TwoWay}" Content="IMC" />
+                <RadioButton Grid.Column="0" IsChecked="{Binding IMCseleccionado, Mode=TwoWay}" Content="IMC" />
 
                 <RadioButton Grid.Column="1" Content="FCN" IsChecked="True"/>
             </Grid>

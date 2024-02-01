@@ -16,6 +16,7 @@ namespace IMCyFCN_MCLG
 			InitializeComponent();
 			BindingContext = new VMimcYFCN(Navigation);
 			
+
 		}
 	}
 }
