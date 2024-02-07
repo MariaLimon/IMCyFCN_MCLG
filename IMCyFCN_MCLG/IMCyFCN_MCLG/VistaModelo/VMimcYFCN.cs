@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using static System.Net.WebRequestMethods;
 
 namespace IMCyFCN_MCLG.VistaModelo
 {
@@ -12,11 +13,22 @@ namespace IMCyFCN_MCLG.VistaModelo
 	{
 		#region VARIABLES
 		string _Texto;
+
 		bool _IMCseleccionado;
-		double _peso;
-		double _altura;
-		int _latidos;
-		double _resultado;
+
+		string _peso;
+		string _altura;
+		string _latidos;
+		string _resultado;
+
+		bool _pesoM;
+		bool _alturaM;
+		bool _latidosM;
+		bool _imagenM;
+
+		string _imagen;
+		string _estado;
+
 
 		#endregion
 		#region CONSTRUCTOR
@@ -26,51 +38,177 @@ namespace IMCyFCN_MCLG.VistaModelo
 		}
 		#endregion
 		#region OBJETOS
-		public double peso
+		public string estado
+		{
+			get { return _estado; }
+			set { SetValue(ref _estado, value); }
+		}
+		public string imagen
+		{
+			get { return _imagen; }
+			set { SetValue(ref _imagen, value); }
+		}
+		public string peso
 		{
 			get { return _peso; }
 			set { SetValue(ref _peso, value); }
 		}
-		public double resultado
+		public string resultado
 		{
 			get { return _resultado; }
 			set { SetValue(ref _resultado, value); }
 		}
-		public double altura
+		public string altura
 		{
 			get { return _altura; }
 			set { SetValue(ref _altura, value); }
 		}
-		public int latidos
+		public string latidos
 		{
 			get { return _latidos; }
 			set { SetValue(ref _latidos, value); }
 		}
+
+		public bool imagenM
+		{
+			get { return _imagenM; }
+			set { SetValue(ref _imagenM, value); }
+		}
 		public bool IMCseleccionado
 		{
 			get { return _IMCseleccionado; }
-			set { SetValue(ref _IMCseleccionado, value); }
+			set
+			{
+				_IMCseleccionado = value;
+				OnPropertyChanged();
+				MostrarD(_IMCseleccionado);
+			}
+		}
+
+		public bool alturaM
+		{
+			get { return _alturaM; }
+			set
+			{
+				if (_alturaM != value)
+				{
+					_alturaM = value;
+					OnPropertyChanged(nameof(alturaM));
+				}
+			}
+		}
+		public bool pesoM
+		{
+			get { return _pesoM; }
+			set
+			{
+				if (_pesoM != value)
+				{
+					_pesoM = value;
+					OnPropertyChanged(nameof(pesoM));
+				}
+			}
+		}
+		public bool latidosM
+		{
+			get { return _latidosM; }
+			set
+			{
+				if (_latidosM != value)
+				{
+					_latidosM = value;
+					OnPropertyChanged(nameof(latidosM));
+				}
+			}
 		}
 		#endregion
 		#region PROCESOS
-		Entry pesoM;
-		Entry alturaM;
-		Entry latidosM;
+
+
 		public void MostrarD(bool IMCse)
 		{
-			
+
 			if (IMCse)
 			{
-				pesoM.IsVisible = true;
-				alturaM.IsVisible = true;
-				latidosM.IsVisible = false;
+				pesoM = true;
+				alturaM = true;
+				latidosM = false;
 
 			}
-			else { 
-				
+			else
+			{
+				pesoM = false;
+				alturaM = false;
+				latidosM = true;
 			}
 		}
 
+		public void CalculoBoton()
+		{
+			if (IMCseleccionado)
+			{
+				double alnum = Convert.ToDouble(altura);
+				double penum = Convert.ToDouble(peso);
+				resultado = Convert.ToString(penum / (alnum * alnum));
+				
+			}
+			else
+			{
+				int lanum = Convert.ToInt16(latidos);
+				resultado = Convert.ToString(lanum * 4);
+			}
+			imagen = "true";
+			ImagenAMostrar();
+		}
+		public void ImagenAMostrar()
+		{
+			double resu = Convert.ToDouble(resultado);
+
+			if (IMCseleccionado)
+			{
+				if (resu <= 18.5)
+				{
+					imagen = "crisis.png";
+					estado = "peso insuficiente";
+				}
+				else if (resu >= 18.5 && resu <= 24.9)
+				{
+					imagen = "comprobar.png";
+					estado = "peso normal";
+				}
+				else if(resu>=25.0 && resu <= 29.9)
+				{
+					imagen = "crisis.png";
+					estado = "sobrepeso";
+				}
+				else
+				{
+					imagen = "crisis.png";
+					estado = "obesidad";
+				}
+			}
+			else
+			{
+				if(resu <= 60)
+				{
+					imagen = "crisis.png";
+					estado = "FC bajo";
+				}
+				else if(resu > 60 && resu <= 100)
+				{
+					imagen = "comprobar.png";
+					estado = "FC normal";
+				}
+				else
+				{
+					imagen = "crisis.png";
+					estado = "FC alta";
+				}
+			}
+
+		}
+
+		/*
 		public void IMC()
 		{
 			double alnum = altura;
@@ -84,21 +222,12 @@ namespace IMCyFCN_MCLG.VistaModelo
 
 			resultado =(lanum*4);
 		}
-		public async Task ProcesoAsyncrono()
-		{
-			await DisplayAlert("Titulo", "Mensaje", "Ok");
-		}
-		public void ProcesoSimple()
-		{
+		*/
 
-		}
 		#endregion
 		#region COMANDOS
-		public ICommand ProcesoAsyncommand => new Command(async () => await ProcesoAsyncrono());
 		public ICommand ProcesoMostrarCommand => new Command<bool>(p => MostrarD(p));
-		public ICommand IMCCommand => new Command(IMC);
-
-		public ICommand FCNCommand => new Command(FCN);
+		public ICommand CalcularBotonommand => new Command(CalculoBoton);
 
 		#endregion
 	}

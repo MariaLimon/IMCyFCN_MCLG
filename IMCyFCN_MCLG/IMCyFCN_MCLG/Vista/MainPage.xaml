@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="IMCyFCN_MCLG.MainPage">
 
@@ -22,25 +22,23 @@
                    TextColor="Black"/>
 
             <Grid>
-                <RadioButton Grid.Column="0" IsChecked="{Binding IMCseleccionado, Mode=TwoWay}" Content="IMC" />
+                <RadioButton Grid.Column="0"  IsChecked="{Binding IMCseleccionado, Mode=TwoWay}" Content="IMC"/>
 
-                <RadioButton Grid.Column="1" Content="FCN" IsChecked="True"/>
+                <RadioButton Grid.Column="1" Content="FCN" IsChecked="{Binding !IMCseleccionado}" />
             </Grid>
 
             <Label Text="Proporciona datos"/>
 
             <Entry Placeholder="Peso" x:Name="peso" Text="{Binding peso}" Keyboard="Numeric" IsVisible="{Binding pesoM}"/>
-            <Entry Placeholder="Altura" x:Name="altura" Text="{Binding altura}" Keyboard="Numeric" IsVisible="{Binding alturaM}"/>
+            <Entry Placeholder="Altura (en metros)" x:Name="altura" Text="{Binding altura}" Keyboard="Numeric" IsVisible="{Binding alturaM}"/>
             <Entry Placeholder="Latidos" x:Name="latidos" Text="{Binding latidos}" Keyboard="Numeric" IsVisible="{Binding latidosM}"/>
 
-
-            <Button Text="Calcular" Command="{Binding IMCCommand}"/>
-
-
-            <Button Text="CalcularFCN" Command="{Binding FCNCommand}"/>
+            <Button Text="Calcular" Command="{Binding CalcularBotonommand}"/>
 
             <Entry Text="{Binding resultado}" Placeholder="Resultado"></Entry>
-            <Image Source=""></Image>
+
+            <Image Source="{Binding imagen}" IsVisible="true"/>
+            <Label Text="{Binding estado}" HorizontalTextAlignment="Center"></Label>
 
         </StackLayout>
         
